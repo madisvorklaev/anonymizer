@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PDF Anonymizer</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header>
+  <h1>PDF Anonymizer</h1>
+  <p>Runs locally. Nothing leaves this machine.</p>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" data-tab="anonymize">Anonymize</button>
+  <button class="tab-btn" data-tab="restore">Restore</button>
+</div>
+
+<main>
+  <section id="panel-anonymize" class="panel active">
+    <div class="row">
+      <input type="file" id="fileInput" accept="application/pdf">
+      <span class="hint">Upload a PDF, then drag rectangles on the page over anything to redact.</span>
+    </div>
+
+    <div class="row" id="pageControls" style="display:none;">
+      <button class="btn" id="prevPage">&larr; Prev</button>
+      <span id="pageLabel" class="hint"></span>
+      <button class="btn" id="nextPage">Next &rarr;</button>
+      <span class="counter" id="regionCounter">0 regions selected</span>
+      <button class="btn" id="undoBox">Undo last box</button>
+      <button class="btn" id="clearPageBoxes">Clear this page</button>
+    </div>
+
+    <div id="canvasWrap" style="display:none;">
+      <canvas id="pdfCanvas"></canvas>
+    </div>
+
+    <div class="row" id="anonymizeRow" style="display:none; margin-top:14px;">
+      <button class="btn primary" id="anonymizeBtn">Anonymize &amp; Download</button>
+    </div>
+
+    <div class="status" id="anonStatus"></div>
+  </section>
+
+  <section id="panel-restore" class="panel">
+    <div class="row">
+      <input type="file" id="restoreInput" accept="application/pdf">
+    </div>
+    <div class="row">
+      <button class="btn primary" id="restoreBtn">Restore &amp; Download</button>
+    </div>
+    <p class="hint">
+      Upload a previously anonymized PDF. The app reads the redaction IDs stamped
+      into it, looks up the encrypted originals in its local database, and pastes
+      them back to produce a restored file.
+    </p>
+    <div class="status" id="restoreStatus"></div>
+  </section>
+</main>
+
+<footer>
+  Redaction snapshots are encrypted and stored locally in <code>data/redactions.db</code>.
+  Restoring only works from this same machine/installation.
+</footer>
+
+<script src="/app.js"></script>
+</body>
+</html>

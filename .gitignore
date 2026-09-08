@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+
+# Runtime data — local secrets and user documents, never commit these
+data/secret.key
+data/redactions.db
+data/uploads/*
+data/outputs/*
+!data/uploads/.gitkeep
+!data/outputs/.gitkeep
+
+server_out.log
+server_err.log
